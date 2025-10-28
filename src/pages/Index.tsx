@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import Icon from '@/components/ui/icon';
@@ -6,6 +6,32 @@ import { toast } from 'sonner';
 
 const Index = () => {
   const [rsvpStatus, setRsvpStatus] = useState<'yes' | 'no' | null>(null);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const targetDate = new Date('2025-11-01T18:00:00').getTime();
+
+    const updateTimer = () => {
+      const now = new Date().getTime();
+      const difference = targetDate - now;
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((difference % (1000 * 60)) / 1000),
+        });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    updateTimer();
+    const interval = setInterval(updateTimer, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleRSVP = (status: 'yes' | 'no') => {
     setRsvpStatus(status);
@@ -57,6 +83,38 @@ const Index = () => {
           <p className="text-2xl text-muted-foreground mb-8">
             на взлётную полосу 18-летия
           </p>
+          
+          <div className="mb-8 animate-scale-in" style={{ animationDelay: '0.3s' }}>
+            <div className="inline-block bg-gradient-to-r from-primary to-secondary rounded-2xl p-6 shadow-xl">
+              <p className="text-white text-sm font-medium mb-3 uppercase tracking-wider">До старта осталось:</p>
+              <div className="grid grid-cols-4 gap-4">
+                <div className="text-center">
+                  <div className="bg-white/20 backdrop-blur rounded-lg p-3 mb-2">
+                    <div className="text-3xl md:text-4xl font-bold text-white font-heading">{timeLeft.days}</div>
+                  </div>
+                  <div className="text-white/90 text-xs md:text-sm font-medium">дней</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 backdrop-blur rounded-lg p-3 mb-2">
+                    <div className="text-3xl md:text-4xl font-bold text-white font-heading">{timeLeft.hours}</div>
+                  </div>
+                  <div className="text-white/90 text-xs md:text-sm font-medium">часов</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 backdrop-blur rounded-lg p-3 mb-2">
+                    <div className="text-3xl md:text-4xl font-bold text-white font-heading">{timeLeft.minutes}</div>
+                  </div>
+                  <div className="text-white/90 text-xs md:text-sm font-medium">минут</div>
+                </div>
+                <div className="text-center">
+                  <div className="bg-white/20 backdrop-blur rounded-lg p-3 mb-2">
+                    <div className="text-3xl md:text-4xl font-bold text-white font-heading">{timeLeft.seconds}</div>
+                  </div>
+                  <div className="text-white/90 text-xs md:text-sm font-medium">секунд</div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="max-w-2xl mx-auto text-lg text-foreground/80 space-y-4">
             <p>
               Дорогой <span className="font-semibold">Попов Андрей Алексеевич</span>!
