@@ -9,7 +9,7 @@ const Index = () => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
-    const targetDate = new Date('2025-11-01T00:00:00').getTime();
+    const targetDate = new Date('2025-11-01T10:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -47,6 +47,19 @@ const Index = () => {
       name: 'Электровелосипед CUBE',
       description: 'Для скоростных и стильных поездок по городу и за город',
       icon: 'Bike',
+      image: 'https://cdn.poehali.dev/projects/ee177303-3c16-4c88-a89b-ef416596182e/files/ac77c624-fad0-46c8-8678-e1e00bb012a5.jpg',
+    },
+    {
+      name: 'Билеты на самолёт Аэрофлот',
+      description: 'Путешествие в любую точку мира',
+      icon: 'Plane',
+      image: 'https://cdn.poehali.dev/projects/ee177303-3c16-4c88-a89b-ef416596182e/files/f5c000f6-84ad-42bf-9e2b-e532a69ef316.jpg',
+    },
+    {
+      name: 'Tesla Model X',
+      description: 'Электромобиль мечты с крыльями сокола',
+      icon: 'Car',
+      image: 'https://cdn.poehali.dev/projects/ee177303-3c16-4c88-a89b-ef416596182e/files/08600aee-d696-4a44-9308-ce1999f60d13.jpg',
     },
     {
       name: 'Электросамокат Ninebot Max G3',
@@ -137,9 +150,9 @@ const Index = () => {
                 <div className="flex items-start gap-3">
                   <Icon name="Clock" size={24} className="text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <span className="font-semibold">Время:</span> Сбор гостей в 18:00
+                    <span className="font-semibold">Время:</span> Сбор гостей в 10:00
                     <p className="text-muted-foreground text-base mt-1">
-                      Так у нас будет целый вечер для общения и веселья!
+                      Так у нас будет целый день для общения и веселья!
                     </p>
                   </div>
                 </div>
@@ -212,11 +225,22 @@ const Index = () => {
                 {wishlist.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-4 p-4 bg-accent/30 rounded-lg hover:bg-accent/50 transition-colors animate-scale-in"
+                    className="flex flex-col md:flex-row items-start gap-4 p-4 bg-accent/30 rounded-lg hover:bg-accent/50 transition-colors animate-scale-in overflow-hidden"
                     style={{ animationDelay: `${0.7 + index * 0.1}s` }}
                   >
-                    <Icon name={item.icon} size={28} className="text-primary flex-shrink-0 mt-1" />
-                    <div>
+                    {item.image && (
+                      <div className="w-full md:w-32 h-32 flex-shrink-0 rounded-lg overflow-hidden">
+                        <img 
+                          src={item.image} 
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
+                    {!item.image && (
+                      <Icon name={item.icon} size={28} className="text-primary flex-shrink-0 mt-1" />
+                    )}
+                    <div className="flex-1">
                       <h3 className="font-semibold text-lg text-foreground">{item.name}</h3>
                       <p className="text-muted-foreground">{item.description}</p>
                     </div>
