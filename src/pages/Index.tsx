@@ -102,27 +102,27 @@ const Index = () => {
 
   const photos = [
     { 
-      url: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&q=80',
-      caption: 'Готовимся к празднику!'
+      url: 'https://cdn.poehali.dev/files/42ff186d-6ebe-4ab1-a7f4-56a91b8bb35e.jpg',
+      caption: 'Электровелосипед CUBE - мечта любого велосипедиста!'
     },
     { 
-      url: 'https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=800&q=80',
-      caption: 'Вечеринка будет яркой!'
+      url: 'https://cdn.poehali.dev/files/cae10daf-1537-40e8-80ea-284d745daf20.jpg',
+      caption: 'Электросамокат Ninebot Max G3 - городской транспорт будущего!'
     },
     { 
-      url: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&q=80',
-      caption: 'Танцуем до утра!'
+      url: 'https://cdn.poehali.dev/files/7affdae6-3e85-4be6-999e-c356f395bdd3.jpg',
+      caption: 'Tesla Model X - электромобиль мечты!'
     },
     { 
-      url: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
-      caption: 'Отмечаем стильно!'
+      url: 'https://cdn.poehali.dev/files/9d9836bf-11dc-46e2-8eac-c3ea3a44391c.jpg',
+      caption: 'Билеты на Аэрофлот - путешествия по всему миру!'
     },
   ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-cyan-50 via-white to-lime-50 relative overflow-hidden">
       <audio ref={audioRef} loop>
-        <source src="https://cdn.poehali.dev/projects/ee177303-3c16-4c88-a89b-ef416596182e/files/lube-ty-nesi-menya-reka.mp3" type="audio/mpeg" />
+        <source src="https://cdn.zvuk.com/api/play?id=11599718&type=mp3" type="audio/mpeg" />
       </audio>
 
       <div 
