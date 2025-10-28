@@ -19,7 +19,7 @@ const Index = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    const targetDate = new Date('2025-11-01T00:00:00').getTime();
+    const targetDate = new Date('2025-11-01T10:00:00').getTime();
 
     const updateTimer = () => {
       const now = new Date().getTime();
@@ -65,14 +65,20 @@ const Index = () => {
     }
   };
 
-  const toggleMusic = () => {
+  const toggleMusic = async () => {
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
+      try {
+        if (isPlaying) {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        } else {
+          await audioRef.current.play();
+          setIsPlaying(true);
+        }
+      } catch (error) {
+        console.error('Audio playback failed:', error);
+        toast.error('Не удалось воспроизвести музыку');
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -213,9 +219,9 @@ const Index = () => {
                 <div className="flex items-start gap-4 p-4 rounded-xl hover:bg-accent/30 transition-colors">
                   <Icon name="Clock" size={32} className="text-primary mt-1 flex-shrink-0" />
                   <div>
-                    <span className="font-bold text-primary">Время:</span> Сбор гостей в 18:00
+                    <span className="font-bold text-primary">Время:</span> Сбор гостей в 10:00
                     <p className="text-muted-foreground text-lg mt-2">
-                      Так у нас будет целый вечер для общения и веселья!
+                      Так у нас будет целый день для общения и веселья!
                     </p>
                   </div>
                 </div>
@@ -347,24 +353,24 @@ const Index = () => {
                 <Button
                   size="lg"
                   onClick={() => handleRSVP('yes')}
-                  className={`text-xl px-12 py-8 rounded-2xl font-bold hover:scale-110 transition-all duration-300 shadow-2xl ${
+                  className={`text-lg px-8 py-6 rounded-2xl font-bold hover:scale-110 transition-all duration-300 shadow-2xl ${
                     rsvpStatus === 'yes' ? 'bg-primary scale-110 shadow-primary/50' : ''
                   }`}
                   variant={rsvpStatus === 'yes' ? 'default' : 'outline'}
                 >
-                  <Icon name="Check" size={28} className="mr-3" />
-                  Да, я буду! Считай меня в команде!
+                  <Icon name="Check" size={24} className="mr-2" />
+                  <span className="break-words">Да, я буду! Считай меня в команде!</span>
                 </Button>
                 <Button
                   size="lg"
                   onClick={() => handleRSVP('no')}
-                  className={`text-xl px-12 py-8 rounded-2xl font-bold hover:scale-110 transition-all duration-300 shadow-2xl ${
+                  className={`text-lg px-8 py-6 rounded-2xl font-bold hover:scale-110 transition-all duration-300 shadow-2xl ${
                     rsvpStatus === 'no' ? 'bg-muted scale-110' : ''
                   }`}
                   variant={rsvpStatus === 'no' ? 'secondary' : 'outline'}
                 >
-                  <Icon name="X" size={28} className="mr-3" />
-                  К сожалению, мой полёт отменяется
+                  <Icon name="X" size={24} className="mr-2" />
+                  <span className="break-words">К сожалению, мой полёт отменяется</span>
                 </Button>
               </div>
             </CardContent>
